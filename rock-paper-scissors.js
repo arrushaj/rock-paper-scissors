@@ -63,7 +63,7 @@ function game() {
             let playerSelection = prompt("Rock, paper, or scissors?");
             let computerSelection = computerPlay();
             message = playRound(playerSelection, computerSelection);
-            console.log(message.slice(0,7));
+            console.log(message);
             if (message.slice(0,7) == "You win") {
                 playerWins++;
             } else if (message.slice(0, 8) == "You lose") {
@@ -71,14 +71,18 @@ function game() {
             }
         }
         while (message == "It's a draw!");
+
+        if (playerWins >= 3) {
+            console.log("You win!");
+            break;
+        } else if (computerWins >= 3) {
+            console.log("The computer won!");
+            break;
+        }
     }
     console.log(playerWins);
     console.log(computerWins);
-    if (playerWins >= 3) {
-        console.log("You win!");
-    } else if (computerWins >= 3) {
-        console.log("The computer won!");
-    }
+
 }
 
 console.log(game());

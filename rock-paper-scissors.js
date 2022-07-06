@@ -28,10 +28,6 @@ function getRandomIntInclusive(min, max) {
 function playRound(playerSelection, computerSelection) {
     playerLower = playerSelection.toLowerCase();
     computerLower = computerSelection.toLowerCase();
-    while (playerLower != "rock" && playerLower != "paper" && playerLower != "scissors") {
-        playerLower = prompt("Not an acceptable answer. Try again").toLowerCase();
-        console.log(playerLower);
-    }
 
     if (computerLower == "rock" && playerLower == "scissors") {
         let string = "You lose! Rock beats Scissors!";
@@ -63,7 +59,13 @@ function game() {
     for (let i = 0; i < 5; i++) {
         let message;
         do {
-            let playerSelection = prompt("Rock, paper, or scissors?");
+            let playerLower = prompt("Rock, paper, or scissors?").toLowerCase();
+            while (playerLower != "rock" && playerLower != "paper" && playerLower != "scissors") {
+                playerLower = prompt("Not an acceptable answer. Try again").toLowerCase();
+                console.log(playerLower);
+            }
+
+            let playerSelection = playerLower;
             let computerSelection = computerPlay();
             message = playRound(playerSelection, computerSelection);
             console.log(message);

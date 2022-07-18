@@ -53,7 +53,7 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
+/*function game() {
     let playerWins = 0;
     let computerWins = 0;
     for (let i = 0; i < 5; i++) {
@@ -88,6 +88,67 @@ function game() {
     console.log(playerWins);
     console.log(computerWins);
 
+}*/
+
+// console.log(game());
+
+let playerWins = 0;
+let computerWins = 0;
+
+const div_header = document.createElement('h1');
+
+function checkGame() {
+    if (playerWins >= 5) {
+        div_header.textContent = "You won the game!";
+        div.appendChild(div_header);
+        let buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+            button.disabled = true;
+        })
+    } else if (computerWins >= 5) {
+        div_header.textContent = "You lost to the computer!";
+        div.appendChild(div_header);
+        let buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+            button.disabled = true;
+        })
+    } else {
+        return;
+    }
 }
 
-console.log(game());
+const div = document.querySelector('div');
+const score = document.querySelector('h1');
+score.textContent = "Player " + playerWins + " - " + "Computer " + computerWins;
+
+function runningResult(result) {
+    if (result == 'win') {
+        playerWins++;
+        score.textContent = "Player " + playerWins + " - " + "Computer " + computerWins;
+    } else {
+        computerWins++;
+        score.textContent = "Player " + playerWins + " - " + "Computer " + computerWins;
+    }
+}
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+
+    button.addEventListener('click', () => {
+        let playerSelection = button.textContent;
+        let computerSelection = computerPlay();
+        let message = playRound(playerSelection, computerSelection);
+        if (message.slice(0,7) == "You win") {
+            runningResult('win');
+        } else if (message.slice(0, 8) == "You lose") {
+            runningResult('loss');
+        }
+        message = "You chose " + playerSelection + ". The computer chose " + computerSelection + ". " + message;
+        console.log(message);
+        const result = document.createElement('p');
+        result.textContent = message;
+        div.appendChild(result);
+        checkGame();
+    });
+});
